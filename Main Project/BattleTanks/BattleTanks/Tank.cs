@@ -20,7 +20,7 @@ namespace BattleTanks
         public static int OrangeScore = 0;
 
         static readonly Color projectileColor;
-        static readonly int[] ExplosionSequence = { 1, 2, 3, 2 };
+        static readonly int[] CollisionSequence = { 1, 2, 3, 2 };
 
         static Tank()
         {
@@ -41,18 +41,37 @@ namespace BattleTanks
         public int X, Y, Speed, Angle;
         public byte[] VGA;
         // Setting amount of projectiles that a tank can shoot at a time 
-        public byte[][] collision = new byte[2][];
-        // List<Projectile> Projectiles = new List<Projectile>();
+        public byte[][] Collision = new byte[2][];
+        List<Projectile> Projectiles = new List<Projectile>();
         public bool hasCollided = false;
         int _CollisionIndex = 0;
 
-        public void Draw(panel)
+        public void Draw(MainPage panel)
         {
             foreach(Projectile projectile in Projectiles)
             {
+                panel.PutPixel((int)Math.Round(projectile.X), (int)Math.Round(projectile.Y), projectileColor);
+                panel.PutPixel((int)Math.Round(projectile.X) + 1, (int)Math.Round(projectile.Y), projectileColor);
+                panel.PutPixel((int)Math.Round(projectile.X), (int)Math.Round(projectile.Y), projectileColor);
+                panel.PutPixel((int)Math.Round(projectile.X) + 1, (int)Math.Round(projectile.Y), projectileColor);
 
-            }
-        }
+            }// ForEach
+
+            // When a projectile collides with a tank
+            if (hasCollided)
+            {
+                if(_CollisionIndex < 19)
+                {
+                    panel.DrawVGARRotated(X, Y, Angle, Collision[CollisionSequence[_CollisionIndex % 4] - 1]);
+                    _CollisionIndex++;
+                }
+                else
+                {
+                    // No collision
+                }
+            }// if
+        }// Draw
+
 
 
     }
