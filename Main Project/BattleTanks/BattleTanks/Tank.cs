@@ -62,6 +62,7 @@ namespace BattleTanks
             {
                 if(_CollisionIndex < 19)
                 {
+                    //MainPage.xaml
                     panel.DrawVGARRotated(X, Y, Angle, Collision[CollisionSequence[_CollisionIndex % 4] - 1]);
                     _CollisionIndex++;
                 }
@@ -70,8 +71,105 @@ namespace BattleTanks
                     // No collision
                 }
             }// if
+
+            else
+            {
+                panel.DrawVGARotated(X, Y, Angle, VGA);
+            }
         }// Draw
 
+        public bool collisionComplete
+        {
+            get
+            {
+                return !hasCollided || _CollisionIndex >= 19;
+            }
+        } // Collision finished
+
+        public void Collided()
+        {
+            if(!hasCollided)
+            {
+                _CollisionIndex = 0;
+                hasCollided = true;
+            }
+        }// Collision
+
+        // Checking the upwards angle 
+        public void Up()
+        {
+            if (Angle > 0 && Angle < 8)
+            {
+                Angle--;
+            }
+            else if(Angle <= 15 && Angle >= 8)
+            {
+                Angle++;
+            }
+
+            NormalizeAngle();
+        }// Up
+
+        public void Down()
+        {
+            if (Angle >= 0 && Angle < 8)
+            {
+                Angle++;
+            }
+            else if (Angle <= 15 && Angle > 8)
+            {
+                Angle--;
+            }
+        }// Down
+
+        public void Left()
+        {
+            if(Angle >= 12 && Angle < 4)
+            {
+                Angle++;
+            }
+            else if(Angle > 12 && Angle <= 15 || Angle >= 0 && Angle < 4)
+            {
+                Angle--;
+            }
+
+            NormalizeAngle();
+        }// Left
+
+        public void Right()
+        {
+            if(Angle < 12 && Angle > 4)
+            {
+                Angle++;
+            }
+            else if (Angle >= 12 && Angle <= 15 || Angle >= 0 && Angle < 4 )
+            {
+                Angle++;
+            }
+
+            NormalizeAngle();
+        }// Right
+
+
+        // Keeps the angle normalized after angle check
+        void NormalizeAngle()
+        {
+            if (Angle > 15)
+            {
+                Angle = 0;
+            }
+            else if(Angle < 0)
+            {
+                Angle = 15;
+            }
+        }// Normailze angle
+
+        public void Move()
+        {
+            int a = (Angle + 4) % 16;
+            X -= (int)Math.Round(Speed * Globals.CosTable[a]);
+            Y -= (int)Math.Round(Speed * Globals.CosTable[a]);
+        }
 
 
     }
