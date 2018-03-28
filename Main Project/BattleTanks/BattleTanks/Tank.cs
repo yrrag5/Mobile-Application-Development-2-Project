@@ -168,7 +168,7 @@ namespace BattleTanks
         {
             int a = (Angle + 4) % 16;
             X -= (int)Math.Round(Speed * Globals.CosTable[a]);
-            Y -= (int)Math.Round(Speed * Globals.CosTable[a]);
+            Y -= (int)Math.Round(Speed * Globals.SinTable[a]);
         }
 
 
