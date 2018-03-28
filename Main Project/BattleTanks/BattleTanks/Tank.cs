@@ -171,6 +171,158 @@ namespace BattleTanks
             Y -= (int)Math.Round(Speed * Globals.SinTable[a]);
         }
 
+        public void Shoot()
+        {
+            if(Projectiles.Count < Globals.maxProjectile)
+            {
+                var p = new Projectile();
+                p.Age = 0;
+                int a = (Angle + 4) % 16;
+
+                p.X = X - 11 * Globals.CosTable[a];
+                p.Y = Y - 11 * Globals.SinTable[a];
+                p.DX = -1.2 * Globals.CosTable[a];
+                p.DY = -1.2 * Globals.SinTable[a];
+
+                Projectiles.Add(p);
+            } // if
+        }// Shoot
+
+        public void CheckCollisions(Cell[,] map)
+        {
+           switch (Angle)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    break;
+                case 12:
+                    break;
+                case 13:
+                    break;
+                case 14:
+                    break;
+                case 15:
+                    break;
+            }// Switch
+
+            for( int i = 0; i < 40; i++)
+            {
+                for (int j = 0; j < 25; j++)
+                {
+                    switch (Angle)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 7:
+                            break;
+                        case 8:
+                            break;
+                        case 9:
+                            break;
+                        case 10:
+                            break;
+                        case 11:
+                            break;
+                        case 12:
+                            break;
+                        case 13:
+                            break;
+                        case 14:
+                            break;
+                        case 15:
+                            break;
+                    }// Switch
+
+                }// Inner for
+            }// for
+        } // Check
+
+        public ProjectileCheck CheckProjectile(Cell[,] map)
+        {
+            foreach(Projectile projectile in Projectiles)
+            {
+                projectile.Age++;
+            }// foreach
+
+            Projectiles.RemoveAll(projectile => projectile.Age > Globals.projectileSpan);
+
+            bool greenHit = false;
+            bool orangeHit = false;
+
+            foreach (Projectile projectile in Projectiles)
+            {
+                projectile.X += projectile.DX;
+                projectile.Y += projectile.DY;
+
+                if (projectile.Y < 4 || projectile.Y > 194)
+                {
+                    projectile.DY = -projectile.DY;
+                }// Inner if
+
+                if (projectile.X > 314 || projectile.X < 3)
+                {
+                    projectile.DX = -projectile.DX;
+                }// Inner if 
+
+                for (int i = 0; i < 40; i++)
+                {
+                    for (int j = 0; j < 25; j++)
+                    {
+                        if (map[i, j].Type == 1)
+                        {
+                            if (projectile.X < map[i, j].X + 10 && projectile.X > map[i, j].X + 4 &&
+                                  projectile.Y < map[i, j].Y + 8 && projectile.Y >= map[i, j].Y ||
+                                   projectile.X > map[i, j].X - 2 && projectile.X < map[i, j].X + 4 &&
+                                    projectile.Y < map[i, j].Y + 8 && projectile.Y >= map[i, j].Y)
+                            {
+                                projectile.DX = -projectile.DX;
+                            }
+                            if (projectile.Y < map[i, j].Y + 10 && projectile.Y > map[i, j].Y + 4 &&
+                                projectile.X < map[i, j].X + 8 && projectile.X >= map[i, j].X ||
+                                projectile.Y > map[i, j].Y - 2 && projectile.Y < map[i, j].Y + 4 &&
+                                projectile.X < map[i, j].X && projectile.X >= map[i, j].X + 8)
+                            {
+                                projectile.DY = -projectile.DY;
+                            }
+                        }// Inner inner for
+                    }// Inner for
+                }
+            }// foreach
+
+        }
 
     }
 }
