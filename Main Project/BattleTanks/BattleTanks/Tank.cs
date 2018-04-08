@@ -320,9 +320,32 @@ namespace BattleTanks
                         }// Inner inner for
                     }// Inner for
                 }
+
+                greenHit = greenHit || ProjectileContact(projectile, Green);
+                orangeHit = orangeHit || ProjectileContact(projectile, Green);
             }// foreach
 
-        }
+            return (greenHit ? ProjectileCheck.OrangeScore : ProjectileCheck.Unchanged)
+             | (orangeHit ? ProjectileCheck.GreenScore : ProjectileCheck.Unchanged);
+
+        }// Check
+
+        static bool ProjectileContact(Projectile p, Tank t)
+        {
+            int i = 5;
+            int j = 5;
+
+            if(3 <= t.Angle && t.Angle <= 5 || 11 <= t.Angle && t.Angle <= 13)
+            {
+                i += 4;
+            }
+            else
+            {
+                j += 4;
+            }
+
+            return p.X >= t.X - i && p.X <= t.X + i && p.Y >= t.Y - j && p.Y <= t.Y + j;
+        }// Contact
 
     }
 }
