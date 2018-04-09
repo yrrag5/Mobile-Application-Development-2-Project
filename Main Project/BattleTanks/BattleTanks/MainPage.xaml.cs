@@ -25,6 +25,12 @@ namespace BattleTanks
         public MainPage()
         {
             this.InitializeComponent();
+
         }
+        
+
+       
     }
 }
+
+

@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Cell.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="MainPage.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
