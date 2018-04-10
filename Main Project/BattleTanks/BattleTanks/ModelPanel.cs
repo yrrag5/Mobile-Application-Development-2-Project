@@ -145,6 +145,22 @@ namespace BattleTanks
             InternalPaint(e.Graphics, GetRectangleToFill(true));
         }// OnPaint
 
+        Dictionary<Color, List<RectangleA>> _RectanglesToFill;
+
+        public void DoPaint()
+        {
+            _RectanglesToFill = GetRectanglesToFill(false);
+            this.Invoke((VoidDelegate)MyPaint);
+        }// DoPaint
+
+        void MyPaint()
+        {
+            using(Graphics g = Graphics.FromHwnd(this.Handle))
+            {
+                InternalPaint(g, _RectanglesToFill);
+            }
+        }
+
 
   
     }
