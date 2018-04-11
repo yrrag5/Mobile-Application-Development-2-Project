@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
 
+
 namespace BattleTanks
 {
     class Tank
@@ -50,10 +51,10 @@ namespace BattleTanks
         {
             foreach(Projectile projectile in Projectiles)
             {
-                panel.PutPixel((int)Math.Round(projectile.X), (int)Math.Round(projectile.Y), projectileColor);
-                panel.PutPixel((int)Math.Round(projectile.X) + 1, (int)Math.Round(projectile.Y), projectileColor);
-                panel.PutPixel((int)Math.Round(projectile.X), (int)Math.Round(projectile.Y), projectileColor);
-                panel.PutPixel((int)Math.Round(projectile.X) + 1, (int)Math.Round(projectile.Y), projectileColor);
+                panel.InputPixel((int)Math.Round(projectile.X), (int)Math.Round(projectile.Y), projectileColor);
+                panel.InputPixel((int)Math.Round(projectile.X) + 1, (int)Math.Round(projectile.Y), projectileColor);
+                panel.InputPixel((int)Math.Round(projectile.X), (int)Math.Round(projectile.Y), projectileColor);
+                panel.InputPixel((int)Math.Round(projectile.X) + 1, (int)Math.Round(projectile.Y), projectileColor);
 
             }// ForEach
 
