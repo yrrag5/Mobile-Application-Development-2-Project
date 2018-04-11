@@ -159,10 +159,177 @@ namespace BattleTanks
             {
                 InternalPaint(g, _RectanglesToFill);
             }
+        }// MyPaint
+
+        void InternalPaint(Graphics g, Dictionary<Color, List<RectangleA>> rectanglesToFill)
+        {
+            if(rectanglesToFill == null)
+            {
+                return;
+            }
+
+            foreach (KeyValuePair<Color>, List<rectanglesToFill>> rectanglesToFill) {
+                _Brush.Color = kvp.Key;
+                g.FillRectangles(_Brush, kvp.Value.ToArray());
+            }// Foreach
+
+            if(Score || GameOver)
+            {
+                Score(0);
+            }
+        }// InternalPaint
+
+        Dictionary<Color, List<Rectangle>> GetRectangles(bool redraw)
+        {
+              // Setting tanks pixels on panel   
+            Dictionary<Color, List<_RectanglesToFill>> rectanglesToFill = new Dictionary<Color, List<RectangleF>>();
+
+            float pWidth = Width / 320.0f;
+            float pHeight = Height / 200.0f;
+
+            for (int i = 0; i < 320; i++)
+            {
+                for(int j = 0; j < 200; j++)
+                {
+                    if (redraw || _Screen[x, y] != _Previous[x, y])
+                    {
+                        List<RectangleF> l;
+                        if (!rectanglesToFill.TryGetValue(_Screen[x, y], out l))
+                        {
+                            l = new List<RectangleF>();
+                            rectanglesToFill[_Screen[x, y]] = l;
+                        }
+
+                        l.Add(new RectangleF(x * pixelWidth, y * pixelHeight, pixelWidth, pixelHeight));
+
+                        _Previous[x, y] = _Screen[x, y];
+                    }// Inner if
+
+                }// Inner for
+            }// for
+
+            return rectanglesToFill;
+        }// Dictionary
+
+        public void InputPixel(int x, int y, Color c)
+        {
+            if (x < 0 || x >= 320 || y < 0 || y >= 200)
+            {
+
+            }// if
+        }// Input Pixel
+
+        public Color GetPixel(int x, int y)
+        {
+            if (x < 0 || x >= 320 || y < 0 || y >= 200)
+                return Color.Empty;
+
+            return _Screen[x, y];
         }
 
+        public void DrawVGA(int centerX, int centerY, byte[] vga)
+        {
+            DrawVGARotated(centerX, centerY, 0, vga);
+        }
 
-  
+        public void DrawVGARotated(int centerX, int centerY, int angle, byte[] vga)
+        {
+            int width = vga[0] + 1;
+            int height = vga[2] + 1;
+
+            for (int x = -width / 2; x <= width / 2; x++)
+            {
+                for (int y = -height / 2; y <= height / 2; y++)
+                {
+                    byte c = vga[4 + x + width / 2 + (y + height / 2) * width];
+
+                    int xr = centerX + (int)Math.Round(x * Globals.CosTable[angle] - y * Globals.SinTable[angle]);
+                    int yr = centerY + (int)Math.Round(x * Globals.SinTable[angle] + y * Globals.CosTable[angle]);
+
+                    InputPixel(xr, yr, GetDefaultPaletteColor(c));
+                }
+            }
+            for (int x = centerX - width; x <= centerX + width; x++)
+            {
+                for (int y = centerY - height; y <= centerY + height; y++)
+                {
+                    if (GetPixel(x, y) == Color.White)
+                    {
+                        for (int i = -1; i <= 1; i++)
+                        {
+                            for (int j = -1; j <= 1; j++)
+                            {
+                                if (GetPixel(x + i, y + j) == GetPixel(x - i, y - j))
+                                {
+                                    InputPixel(x, y, GetPixel(x + i, y + j));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public static Color GetDefaultPaletteColor(byte c)
+        {
+            if (c == 0)
+                return Color.White;
+
+            if (c < 16)
+            {
+                return Color.FromArgb(
+                    255 * (2 * ((c & 4) >> 2) + ((c & 8) >> 3)) / 3,
+                    255 * (2 * ((c & 2) >> 1) + ((c & 8) >> 3)) / 3,
+                    255 * (2 * (c & 1) + ((c & 8) >> 3)) / 3);
+            }
+
+            if (c < 32)
+            {
+                int gray = 255 * (c & 0xf) / 16;
+                return Color.FromArgb(gray, gray, gray);
+            }
+
+            return Color.White;
+        }
+
+        protected override void OnResize(EventArgs eventargs)
+        {
+            base.OnResize(eventargs);
+
+            Invalidate();
+        }
+
+        public Color[,] Screen
+        {
+            get
+            {
+                return _Screen;
+            }
+        }
+        public Color[,] Previous
+        {
+            get
+            {
+                return _Previous;
+            }
+        }
+
+        public bool ShouldDrawScore
+        {
+            get;
+            set;
+        }
+
+        public bool GameOver
+        {
+            get;
+            set;
+        }
+
+        Color[,] _Screen = new Color[320, 200];
+        Color[,] _Previous = new Color[320, 200];
+        SolidBrush _Brush = new SolidBrush(Color.White);
+
     }
 }
 
