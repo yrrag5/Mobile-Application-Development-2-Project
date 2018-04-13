@@ -19,7 +19,7 @@ namespace BattleTanks
         }
 
         // Designing map with color background and screen
-        public static void CreateMap(Cell[,] map, Color[,] screen)
+        public static void CreateGrid(Cell[,] map, Color[,] screen)
         {
             Clear(screen);
 

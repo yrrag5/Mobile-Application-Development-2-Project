@@ -38,7 +38,7 @@ namespace BattleTanks
             OrangeScore = 2,
         }
 
-        public bool gotHit;
+        public bool NotHit;
         public int X, Y, Speed, Angle;
         public byte[] VGA;
         // Setting amount of projectiles that a tank can shoot at a time 
