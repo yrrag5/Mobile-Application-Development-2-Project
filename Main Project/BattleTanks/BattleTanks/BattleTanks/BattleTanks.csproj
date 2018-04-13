@@ -84,7 +84,20 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Content Include="Resources\gridDes.txt" />
+    <None Include="Resources\BDR.VGA" />
+    <None Include="Resources\BF1.VGA" />
+    <None Include="Resources\BF2.VGA" />
+    <None Include="Resources\BF3.VGA" />
+    <None Include="Resources\BLOCK.VGA" />
     <None Include="Resources\grid.map" />
+    <None Include="Resources\GUYY.VGA" />
+    <None Include="Resources\RF1.VGA" />
+    <None Include="Resources\RF2.VGA" />
+    <None Include="Resources\RF3.VGA" />
+    <None Include="Resources\SLUG.VGA" />
+    <None Include="Resources\T1.VGA" />
+    <None Include="Resources\T2.VGA" />
+    <None Include="Resources\VGAS.PAS" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

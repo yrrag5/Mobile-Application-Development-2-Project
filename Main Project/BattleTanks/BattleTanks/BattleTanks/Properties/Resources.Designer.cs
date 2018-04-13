@@ -68,12 +68,183 @@ namespace BattleTanks.Properties
             }
         }
 
-        // Grid used for map layout 
         internal static string grid
         {
             get
             {
                 return ResourceManager.GetString("grid", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BDR
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("BDR", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BF1
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("BF1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BF2
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("BF2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BF3
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("BF3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BLOCK
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("BLOCK", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] GUYY
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("GUYY", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to controls for blue:
+        ///
+        ///tilde - moves forward
+        ///1 - fires
+        ///e - turns up
+        ///d - turns down
+        ///s - turns left
+        ///f - turns right
+        ///
+        ///controls for red:
+        ///
+        ///apostrophe - moves forward
+        ///enter - fires
+        ///up - turns up
+        ///down - turns down
+        ///left - turns left
+        ///right - turns right.
+        /// </summary>
+        internal static string Help
+        {
+            get
+            {
+                return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] RF1
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("RF1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] RF2
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("RF2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] RF3
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("RF3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SLUG
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("SLUG", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] T1
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("T1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] T2
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("T2", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }
