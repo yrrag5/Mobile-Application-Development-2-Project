@@ -47,14 +47,14 @@ namespace BattleTanks
         public bool hasCollided = false;
         int _CollisionIndex = 0;
 
-        public void Draw(MainPage panel)
+        public void Draw(ModelPanel panel)
         {
             foreach (Projectile projectile in Projectiles)
             {
                 panel.InputPixel((int)Math.Round(projectile.X), (int)Math.Round(projectile.Y), projectileColor);
                 panel.InputPixel((int)Math.Round(projectile.X) + 1, (int)Math.Round(projectile.Y), projectileColor);
-                panel.InputPixel((int)Math.Round(projectile.X), (int)Math.Round(projectile.Y), projectileColor);
-                panel.InputPixel((int)Math.Round(projectile.X) + 1, (int)Math.Round(projectile.Y), projectileColor);
+                panel.InputPixel((int)Math.Round(projectile.X), (int)Math.Round(projectile.Y) + 1, projectileColor);
+                panel.InputPixel((int)Math.Round(projectile.X) + 1, (int)Math.Round(projectile.Y) + 1, projectileColor);
 
             }// ForEach
 
@@ -63,13 +63,13 @@ namespace BattleTanks
             {
                 if (_CollisionIndex < 19)
                 {
-                    //MainPage.xaml
-                    panel.DrawVGARRotated(X, Y, Angle, Collision[CollisionSequence[_CollisionIndex % 4] - 1]);
+                    //Form.cs
+                    panel.DrawVGARotated(X, Y, Angle, Collision[CollisionSequence[_CollisionIndex % 4] - 1]);
                     _CollisionIndex++;
                 }
                 else
                 {
-                    // No collision
+                    // No collision occurs
                 }
             }// if
 
