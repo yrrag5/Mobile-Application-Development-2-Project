@@ -82,8 +82,13 @@ namespace BattleTanks
                 greenBox.ReadOnly = true;
                 greenBox.Width = 300;
                 greenBox.Height = 250;
-                greenBox.BackColor = Color.FromArgb(50, 205, 50)
+                greenBox.BackColor = Color.FromArgb(50, 205, 50);
             }
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

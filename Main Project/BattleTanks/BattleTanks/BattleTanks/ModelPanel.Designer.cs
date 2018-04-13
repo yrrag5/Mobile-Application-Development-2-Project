@@ -13,7 +13,7 @@ namespace BattleTanks
         public ModelPanel()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            SetStyle(ControlStyles.UserPaint, true)
+            SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.Opaque, true);
         }
@@ -79,15 +79,15 @@ namespace BattleTanks
             g.DrawString(green, _Font, Brushes.Green, new PointF(10, 10));
 
             string orange = Tank.OrangeScore.ToString();
-            SizeH size = g.MeasureString(orange, _Font);
+            SizeF size = g.MeasureString(orange, _Font);
             g.DrawString(orange, _Font, Brushes.Orange, new PointF(Width - size.Width - 10, 10));
 
             if (GameOver)
             {
                 string gOver = "Game Over";
-                size = g.MeasureString(gameOver, _Font);
+                size = g.MeasureString(gOver, _Font);
 
-                g.DrawString(gOver, _Font, Brushes.White, new PointF(Width - size) / 2, (Height - size.Height) / 2);
+                g.DrawString(gOver, _Font, Brushes.White, new PointF((Width - size.Width) / 2, (Height - size.Height) / 2));
             }
         }// Score
 
@@ -115,7 +115,7 @@ namespace BattleTanks
 
             for (int i = 0; i < location.GetUpperBound(0); i++)
             {
-                for (int j = 0; j < location.GetUpperBound(1); y++)
+                for (int j = 0; j < location.GetUpperBound(1); j++)
                 {
                     change[i, j] = location[i, j];
                 }
@@ -146,10 +146,10 @@ namespace BattleTanks
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            InternalPaint(e.Graphics, GetRectangleToFill(true));
+            InternalPaint(e.Graphics, GetRectanglesToFill(true));
         }// OnPaint
 
-        Dictionary<Color, List<RectangleA>> _RectanglesToFill;
+        Dictionary<Color, List<RectangleF>> _RectanglesToFill;
 
         public void DoPaint()
         {
@@ -165,28 +165,28 @@ namespace BattleTanks
             }
         }// MyPaint
 
-        void InternalPaint(Graphics g, Dictionary<Color, List<RectangleA>> rectanglesToFill)
+        void InternalPaint(Graphics g, Dictionary<Color, List<RectangleF>> rectanglesToFill)
         {
             if (rectanglesToFill == null)
             {
                 return;
             }
 
-            foreach (KeyValuePair<Color>, List < rectanglesToFill >> rectanglesToFill) {
+            foreach (KeyValuePair<Color, List <RectangleF>> kvp in rectanglesToFill) {
                 _Brush.Color = kvp.Key;
                 g.FillRectangles(_Brush, kvp.Value.ToArray());
             }// Foreach
 
-            if (Score || GameOver)
+            if (DisplayScore || GameOver)
             {
-                Score(0);
+                Score(g);
             }
         }// InternalPaint
 
-        Dictionary<Color, List<Rectangle>> GetRectangles(bool redraw)
+        Dictionary<Color, List<RectangleF>> GetRectanglesToFill(bool redraw)
         {
             // Setting tanks pixels on panel   
-            Dictionary<Color, List<_RectanglesToFill>> rectanglesToFill = new Dictionary<Color, List<RectangleF>>();
+            Dictionary<Color, List<RectangleF>> rectanglesToFill = new Dictionary<Color, List<RectangleF>>();
 
             float pWidth = Width / 320.0f;
             float pHeight = Height / 200.0f;
@@ -195,18 +195,18 @@ namespace BattleTanks
             {
                 for (int j = 0; j < 200; j++)
                 {
-                    if (redraw || _Screen[x, y] != _Previous[x, y])
+                    if (redraw || _Screen[i, j] != _Previous[i, j])
                     {
-                        List<RectangleF> l;
-                        if (!rectanglesToFill.TryGetValue(_Screen[x, y], out l))
+                        List<RectangleF> k;
+                        if (!rectanglesToFill.TryGetValue(_Screen[i, j], out k))
                         {
-                            l = new List<RectangleF>();
-                            rectanglesToFill[_Screen[x, y]] = l;
+                            k = new List<RectangleF>();
+                            rectanglesToFill[_Screen[i, j]] = k;
                         }
 
-                        l.Add(new RectangleF(x * pixelWidth, y * pixelHeight, pixelWidth, pixelHeight));
+                        k.Add(new RectangleF(i * pWidth, j * pHeight, pWidth, pHeight));
 
-                        _Previous[x, y] = _Screen[x, y];
+                        _Previous[i, j] = _Screen[i, j];
                     }// Inner if
 
                 }// Inner for
@@ -318,7 +318,7 @@ namespace BattleTanks
             }
         }
 
-        public bool ShouldDrawScore
+        public bool DisplayScore
         {
             get;
             set;
