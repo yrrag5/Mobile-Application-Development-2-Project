@@ -4,45 +4,50 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BattleTanks
 {
-    public class TextFilter
+    public class TextFilter : IMessageFilter
     {
-        public class TextFilter : IMessageFilter
+        public bool this[Keys k]
         {
-            public bool this[Keys k]
+            get
             {
-                get
+                bool clicked;
+
+                if (_KeyTable.TryGetValue(k, out clicked))
                 {
-                    bool clicked;
-
-                    if (_KeyTable.TryGetValue(k, out clicked))
-                    {
-                        return false;
-                    }
+                    return clicked;
                 }
-            }//bool
-            //Setting key press variables
-            const int keyPressDown = 0x0100;
-            const int keyPressUp = 0x0101;
+                return false;
+            }
+        }//bool
+        //Setting key press variables
+        const int keyPressDown = 0x0100;
+        const int keyPressUp = 0x0101;
 
-            public bool MessageFilter(ref Message m)
+        public bool MessageFilter(ref Message m)
+        {
+            if (m.Msg == keyPressDown)
             {
-                if (m.Msg == keyPressDown)
-                {
-                    _KeyTable[(Keys)m.WParam] = true;
-                }// if
+                _KeyTable[(Keys)m.WParam] = true;
+            }// if
 
-                if (m.Msg = keyPressUp)
-                {
-                    _KeyTable[(Keys)m.WParam] = false;
-                }
-            }// MessageFilter
+            if (m.Msg == keyPressUp)
+            {
+                _KeyTable[(Keys)m.WParam] = false;
+            }
 
-            Dictionary<Keys, bool> _KeyTable = new Dictionary<Keys, bool>();
-        }// TextFilter
-    }
+            return false;
+        }// MessageFilter
+
+        public bool PreFilterMessage(ref Message m)
+        {
+            throw new NotImplementedException();
+        }
+
+        Dictionary<Keys, bool> _KeyTable = new Dictionary<Keys, bool>();
+    }// TextFilter
+    
 }

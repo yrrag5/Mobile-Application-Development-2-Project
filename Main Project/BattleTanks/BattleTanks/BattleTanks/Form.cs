@@ -13,11 +13,12 @@ namespace BattleTanks
         public Form()
         {
             InitializeComponent();
+
             _UpdateClock.Interval = 100;
-            _UpdateClock.Tick += new EventHandler(_UpdateTimer_Tick);
+            _UpdateClock.Tick += new EventHandler(_UpdateClock_Tick);
             _UpdateClock.Start();
 
-            NewGame(Properties.Resources.map1);
+            NewGame(Properties.Resources.grid);
         }
 
         int _Clock = 0;
@@ -26,28 +27,28 @@ namespace BattleTanks
         {
             if (_RoundComplete)
             {
-                _ModelPanel.Score = true;
-                _RoundOver = false;
+                _ModelPanel.DisplayScore = true;
+                _RoundComplete = false;
 
-                if (Tank.GreenScore >= Globals.LastScore || Tank.OrangeScore >= Globals.lastScore)
+                if (Tank.GreenScore >= Globals.WinCondition || Tank.OrangeScore >= Globals.WinCondition)
                 {
                     _ModelPanel.GameOver = true;
                 }// Inner if
 
                 else
                 {
-                    NewGame();
+                    NextRound();
                 }// Else
             }// if
 
-            else if (_ModelPanel.ShouldDrawScore)
+            else if (_ModelPanel.DisplayScore)
             {
                 _Clock++;
 
                 if (_Clock >= 20 || _ModelPanel.GameOver)
                 {
-                    _ModelPanel.ShouldDrawScore = false;
-                    ModelPanel.Invalidate();
+                    _ModelPanel.DisplayScore = false;
+                    _ModelPanel.Invalidate();
 
                     _Clock = 0;
                 }
@@ -55,7 +56,7 @@ namespace BattleTanks
 
         }//UpdateClock
 
-        protected override void Load(EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
@@ -71,28 +72,26 @@ namespace BattleTanks
         {
             using (Form f = new Form())
             {
-                f.FormBorderStyle = FormBoarderStyle.FixedToolWindow;
+                f.FormBorderStyle = FormBorderStyle.FixedToolWindow;
                 f.AutoSize = true;
-                f.AutoSizeMode = AutoSizeMode.Expand;
-
+                f.AutoSizeMode = AutoSizeMode.GrowAndShrink;
                 f.Location = Location;
 
-                TextBox greenBox = new TextBox();
-                greenBox.Text = Properties.Resources.Text;
-                greenBox.ReadOnly = true;
-                greenBox.Width = 300;
-                greenBox.Height = 250;
-                greenBox.BackColor = Color.FromArgb(50, 205, 50);
+                TextBox nBox = new TextBox();
+                nBox.ReadOnly = true;
+                nBox.Width = 300;
+                nBox.Height = 250;
+                nBox.BackColor = Color.FromArgb(50, 205, 50);
 
-                f.Controls.Add(greenBox);
+                f.Controls.Add(nBox);
 
-                f.ShowDialog;
+                f.ShowDialog();
             }
         }// Menu Click
 
         void EndRound()
         {
-            _End = true;
+            _Finish = true;
         }
 
         void NewGame(string grid)
@@ -106,7 +105,7 @@ namespace BattleTanks
 
             LoadGrid(grid);
             ModelPanel.CreateGrid(_Grid, _Background);
-            ModelPanel.Flip(_Background, _ModelPanel);
+            ModelPanel.ChangeScreen(_Background, _ModelPanel.Screen);
             _ModelPanel.GameOver = false;
 
             Tank.GreenScore = 0;
@@ -123,7 +122,7 @@ namespace BattleTanks
             // Tank properties 
             Tank.Green = new Tank();
             Tank.Green.NotHit = true;
-            Tank.Green.VGA = Properties.GT;
+            //Tank.Green.VGA = Properties.GT;
             Tank.Green.X = 270;
             Tank.Green.Y = 175;
             Tank.Green.Angle = 12;
@@ -131,7 +130,7 @@ namespace BattleTanks
 
             Tank.Orange = new Tank();
             Tank.Orange.NotHit = true;
-            Tank.Orange.VGA = Properties.OT;
+            //Tank.Orange.VGA = Properties.OT;
             Tank.Orange.X = 60;
             Tank.Orange.Y = 20;
             Tank.Orange.Angle = 12;
@@ -205,51 +204,52 @@ namespace BattleTanks
             while (!_Finish)
             {
                 CheckKeys();
-                Tank.ProjectileCheck res = Tank.Green.CheckCollisions(_Grid);
-                res |= Tank.Orange.CheckCollisions(_Grid);
+                Tank.ProjectileCheck res = Tank.Green.CheckProjectile(_Grid);
+                res |= Tank.Orange.CheckProjectile(_Grid);
 
                 if((res & Tank.ProjectileCheck.GreenScore) != 0)
                 {
                     delay = eDelay;
                     Tank.Green.Collided();
                 }
-                if((res & Tank.ProjectileCheck.OrangeScore) != 0)
+                if ((res & Tank.ProjectileCheck.OrangeScore) != 0)
                 {
                     delay = eDelay;
                     Tank.Orange.Collided();
+                }
 
-                    ModelPanel.FlipScreen(_Background, _ModelPanel.Screen);
+                    ModelPanel.ChangeScreen(_Background, _ModelPanel.Screen);
 
                     _ModelPanel.DoPaint();
 
                     if((Tank.Green.hasCollided || Tank.Orange.hasCollided) &&
-                        Tank.Green. && Tank.Orange.)
+                        Tank.Green.CollisionComplete && Tank.Orange.CollisionComplete)
                     {
-                        if (Tank.Green.)
+                        if (Tank.Green.hasCollided)
                         {
                             Tank.OrangeScore++;
                         }
-                        else if (Tank.Orange.)
+                        else if (Tank.Orange.hasCollided)
                         {
                             Tank.GreenScore++;
                         }
 
                         _RoundComplete = true;
                         return;
-                    }//Inner if  
-                }// if
+                    }//if  
+               
 
-                if (!_Complete)
+                if (!_Finish)
                 {
                     System.Threading.Thread.Sleep(delay);
                 }
             }// while
         }// Continued
 
-        protected override void Close(EventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-          _Complete = true;
-          base.Close(e);          
+          _Finish = true;
+          base.OnClosing(e);          
         }
 
         #region Keys
@@ -419,13 +419,16 @@ namespace BattleTanks
 
 
         Cell[,] _Grid = new Cell[40, 25];
-        Color _Background = new Color[320, 200];
-        Clock _Update = new Clock;
+        Color[,] _Background = new Color[320, 200];
+        Timer _UpdateClock = new Timer();
 
         TextFilter _Keys = new TextFilter();
 
-        bool _Complete = false;
-        bool _roundFinished = false;
+        bool _Finish = false;
+        bool _RoundComplete = false;
+
+        System.Threading.Thread _Thread;
+
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {

@@ -67,5 +67,14 @@ namespace BattleTanks.Properties
                 resourceCulture = value;
             }
         }
+
+        // Grid used for map layout 
+        internal static string grid
+        {
+            get
+            {
+                return ResourceManager.GetString("grid", resourceCulture);
+            }
+        }
     }
 }

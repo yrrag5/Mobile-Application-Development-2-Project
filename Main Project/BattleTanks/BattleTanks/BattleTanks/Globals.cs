@@ -19,7 +19,7 @@ namespace BattleTanks
         public static int projectileSpan = 500;
 
         // Number of wins set to 5
-        public static int winCondition = 5;
+        public static int WinCondition = 5;
 
         static Globals()
         {

@@ -79,7 +79,7 @@ namespace BattleTanks
             }
         }// Draw
 
-        public bool collisionComplete
+        public bool CollisionComplete
         {
             get
             {
@@ -194,36 +194,148 @@ namespace BattleTanks
             switch (Angle)
             {
                 case 0:
+                    if (Y < 17)
+                    {
+                        Y = 17;
+                    }
                     break;
                 case 1:
+                    if (Y < 16)
+                    {
+                        Y = 16;
+                    }
+                    if (X > 305) X = 305;
+                    {
+                        X = 305;
+                    }
                     break;
                 case 2:
+                    if (Y < 16)
+                    {
+                        Y = 16;
+                    }
+                    if (X > 305) X = 305;
+                    {
+                        X = 305;
+                    }
                     break;
                 case 3:
+                    if (Y < 13)
+                    {
+                        Y = 13;
+                    }
+                    if (X > 302)
+                    {
+                        X = 302;
+                    }
                     break;
                 case 4:
+                    if (X > 301) 
+                    {
+                        X = 301;
+                    }
                     break;
                 case 5:
+                    if (Y < 185)
+                    {
+                        Y = 185;
+                    }
+                    if (X > 302)
+                    {
+                        X = 302;
+                    }
                     break;
                 case 6:
+                    if (Y < 184)
+                    {
+                        Y = 184;
+                    }
+                     if (X > 181) 
+                    {
+                        X = 305;
+                    }
                     break;
                 case 7:
+                    if (Y < 181)
+                    {
+                        Y = 181;
+                    }
+                    if (X > 305) 
+                    {
+                        X = 305;
+                    }
                     break;
                 case 8:
+                    if (Y < 181)
+                    {
+                        Y = 181;
+                    }
                     break;
                 case 9:
+                    if (Y < 181)
+                    {
+                        Y = 181;
+                    }
+                    if (X > 13) 
+                    {
+                        X = 13;
+                    }
                     break;
                 case 10:
+                    if (Y < 184)
+                    {
+                        Y = 184;
+                    }
+                     if (X > 14)
+                    {
+                        X = 14;
+                    }
                     break;
                 case 11:
+                    if (Y < 185)
+                    {
+                        Y = 185;
+                    }
+                    if (X > 16) 
+                    {
+                        X = 16;
+                    }
                     break;
                 case 12:
+                    if (Y < 17)
+                    {
+                        Y = 17;
+                    }
                     break;
                 case 13:
+                    if (Y < 13)
+                    {
+                        Y = 13;
+                    }
+                    if (X > 16) 
+                    {
+                        X = 16;
+                    }
                     break;
                 case 14:
+                    if (Y < 14)
+                    {
+                        Y = 14;
+                    }
+                    if (X > 14)
+                    {
+                        X = 14;
+                    }
                     break;
                 case 15:
+                    if (Y < 16)
+                    {
+                        Y = 16;
+                    }
+                    if (X > 13) 
+                    {
+                        X = 13;
+                    }
                     break;
             }// Switch
 
@@ -234,42 +346,167 @@ namespace BattleTanks
                     switch (Angle)
                     {
                         case 0:
+                            if ((Y - 10 < map[i, j].Y + 11) && (Y > map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y + 21;
                             break;
                         case 1:
+                            if ((Y - 10 < map[i, j].Y + 11) && (Y > map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y + 21;
+                            if ((X + 10 > map[i, j].X - 2) && (X + 10 < map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X - 12;
                             break;
                         case 2:
+                            if ((Y - 10 < map[i, j].Y + 10) && (Y > map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y + 20;
+                            if ((X + 10 > map[i, j].X - 2) && (X + 10 < map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X - 12;
                             break;
                         case 3:
+                            if ((Y - 10 < map[i, j].Y + 10) && (Y > map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y + 20;
+                            if ((X + 10 > map[i, j].X - 3) && (X + 10 < map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X - 13;
                             break;
                         case 4:
+                            if ((X + 10 > map[i, j].X - 3) && (X + 10 < map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X - 13;
                             break;
                         case 5:
+                            if ((X + 10 > map[i, j].X - 3) && (X + 10 < map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X - 13;
+                            if ((Y + 10 > map[i, j].Y - 2) && (Y + 10 < map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y - 12;
                             break;
                         case 6:
+                            if ((X + 10 > map[i, j].X - 2) && (X + 10 < map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X - 12;
+                            if ((Y + 10 > map[i, j].Y - 2) && (Y + 10 < map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y - 12;
                             break;
                         case 7:
+                            if ((X + 10 > map[i, j].X - 2) && (X + 10 < map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X - 12;
+                            if ((Y + 10 > map[i, j].Y - 3) && (Y + 10 < map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y - 13;
                             break;
                         case 8:
+                            if ((Y + 10 > map[i, j].Y - 3) && (Y + 10 < map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y - 13;
                             break;
                         case 9:
+                            if ((X - 10 <= map[i, j].X + 10) && (X - 10 >= map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X + 20;
+                            if ((Y + 10 > map[i, j].Y - 3) && (Y + 10 < map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y - 13;
                             break;
                         case 10:
+                            if ((X - 10 <= map[i, j].X + 10) && (X - 10 >= map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X + 20;
+                            if ((Y + 10 > map[i, j].Y - 2) && (Y + 10 < map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y - 12;
                             break;
                         case 11:
+                            if ((X - 10 <= map[i, j].X + 11) && (X - 10 >= map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X + 21;
+                            if ((Y + 10 > map[i, j].Y - 2) && (Y + 10 < map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y - 12;
                             break;
                         case 12:
+                            if ((X - 10 <= map[i, j].X + 11) && (X - 10 >= map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X + 21;
                             break;
                         case 13:
+                            if ((X - 10 <= map[i, j].X + 11) && (X - 10 >= map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X + 21;
+                            if ((Y - 10 < map[i, j].Y + 10) && (Y > map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y + 20;
                             break;
                         case 14:
+                            if ((X - 10 <= map[i, j].X + 10) && (X - 10 >= map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X + 20;
+                            if ((Y - 10 < map[i, j].Y + 10) && (Y > map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y + 20;
                             break;
                         case 15:
+                            if ((X - 10 <= map[i, j].X + 10) && (X - 10 >= map[i, j].X + 4) &&
+                               (((Y - 6 <= map[i, j].Y + 8) && (Y - 6 >= map[i, j].Y)) ||
+                               ((Y + 6 >= map[i, j].Y) && (Y + 6 <= map[i, j].Y + 8)) ||
+                               ((Y >= map[i, j].Y) && (Y <= map[i, j].Y + 8)))) X = map[i, j].X + 20;
+                            if ((Y - 10 < map[i, j].Y + 11) && (Y > map[i, j].Y + 4) &&
+                               (((X - 6 <= map[i, j].X + 8) && (X - 6 >= map[i, j].X)) ||
+                               ((X + 6 >= map[i, j].X) && (X + 6 <= map[i, j].X + 8)) ||
+                               ((X >= map[i, j].X) && (X <= map[i, j].X + 8)))) Y = map[i, j].Y + 21;
                             break;
                     }// Switch
 
                 }// Inner for
             }// for
         } // Check
+
+        void NormaliseAngle()
+        {
+            if(Angle > 15)
+            {
+                Angle = 0;
+            }
+            else if (Angle < 0)
+            {
+                Angle = 15;
+            }
+        }
+            
 
         public ProjectileCheck CheckProjectile(Cell[,] map)
         {
