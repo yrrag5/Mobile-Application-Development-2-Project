@@ -1,6 +1,6 @@
 ﻿namespace BattleTanks
 {
-    partial class Form1
+    partial class Form
     {
         /// <summary>
         /// Required designer variable.
