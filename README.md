@@ -33,7 +33,7 @@ Right - D
 
 Move - M
 
-Shoot - R
+Shoot - F
 
 # Goals
 
